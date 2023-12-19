@@ -1,0 +1,25 @@
+package log
+
+import (
+	"os"
+
+	"github.com/mattn/go-colorable"
+	log "github.com/sirupsen/logrus"
+)
+
+var Butler = log.New()
+
+func init() {
+	// Log as JSON instead of the default ASCII formatter.
+	Butler.SetFormatter(&log.JSONFormatter{})
+
+	// Output to stdout instead of the default stderr
+	// Can be any io.Writer, see below for File example
+	Butler.SetOutput(os.Stdout)
+
+	Butler.SetLevel(log.InfoLevel)
+	Butler.SetFormatter(&log.TextFormatter{ForceColors: true})
+	Butler.SetOutput(colorable.NewColorableStdout())
+	Butler.SetReportCaller(true)
+
+}
